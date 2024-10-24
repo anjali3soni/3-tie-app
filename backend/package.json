@@ -1,0 +1,11 @@
+{
+    "name": "simple-backend",
+    "version": "1.0.0",
+    "main": "server.js",
+    "dependencies": {
+      "express": "^4.17.1",
+      "pg": "^8.7.1",
+      "aws-xray-sdk": "^3.3.0"
+    }
+}
+  
