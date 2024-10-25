@@ -3,7 +3,7 @@ const { CollectorTraceExporter } = require('@opentelemetry/exporter-collector');
 
 const sdk = new NodeSDK({
   traceExporter: new CollectorTraceExporter({
-    url: 'http://localhost:3100/api/traces', // URL to send traces to Tempo
+    url: 'http://18.216.231.120:3100/api/traces', // URL to send traces to Tempo
   }),
   autoDetectResources: true,
 });
