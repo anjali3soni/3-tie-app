@@ -13,3 +13,4 @@ sdk.start().then(() => {
 }).catch((error) => {
   console.error('Error initializing tracing', error);
 });
+
