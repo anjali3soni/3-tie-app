@@ -1,26 +1,25 @@
-// backend/server.js
 const express = require('express');
-const { Client } = require('pg');
-
+const { trace } = require('@opentelemetry/api');
+require('./tracing');  // Import the tracing setup
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
+const tracer = trace.getTracer('my-app-tracer');
 
-
-const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+app.get('/', (req, res) => {
+  const span = tracer.startSpan('get-root');
+  res.send('Hello World');
+  span.end();
 });
 
-client.connect();
-
-app.get('/api/data', async (req, res) => {
-    const result = await client.query('SELECT NOW()');
-    res.send(result.rows);
+app.get('/hello', (req, res) => {
+  const span = tracer.startSpan('get-hello');
+  res.send('Hello from the /hello endpoint!');
+  span.end();
 });
 
-
-
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Backend running on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
